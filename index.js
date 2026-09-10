@@ -30,7 +30,17 @@ const ITENS = [
 async function buscaAmazon(termo){
   try{
     const url = `https://www.amazon.com.br/s?k=${encodeURIComponent(termo)}`;
-    const {data} = await axios.get(url, {headers:{'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}});
+    console.log(`[Amazon] Buscando: ${termo}`);
+    await new Promise(r => setTimeout(r, 5000 + Math.random()*3000));
+    
+    const {data} = await axios.get(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+        'Accept-Language': 'pt-BR,pt;q=0.9',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+      },
+      timeout: 20000
+    });
     const $ = cheerio.load(data);
     const achados = [];
     $('.s-result-item[data-component-type="s-search-result"]').each((i,el)=>{
@@ -46,7 +56,6 @@ async function buscaAmazon(termo){
     return achados.slice(0,3);
   }catch(e){ console.log('Erro Amazon', termo, e.message); return []; }
 }
-
 async function start(){
   const { state, saveCreds } = await useMultiFileAuthState('auth');
   const sock = makeWASocket({ auth: state, printQRInTerminal: true, browser: ["Bot Ofertas","Chrome","1.0"] });
