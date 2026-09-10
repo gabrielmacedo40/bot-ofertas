@@ -15,6 +15,16 @@ const ITENS = [
   { nome: "SSD NVMe 1TB", busca: "SSD NVMe 1TB", max: 500 },
   { nome: "PS5", busca: "Playstation 5", max: 3200 },
   { nome: "Xbox Series S", busca: "Xbox Series S", max: 2000 },
+   {
+    nome: "RX 9070 XT",
+    busca: "9070 XT RX 9070 XT Radeon 9070 XT",
+    max: 3500
+  },
+  {
+    nome: "RTX 12GB",
+    busca: "RTX 4070 RTX 4070 Super RTX 5070 12GB RTX 12GB",
+    max: 3800
+  },
 ];
 
 async function buscaAmazon(termo){
